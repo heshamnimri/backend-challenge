@@ -9,10 +9,24 @@ const router = new Router();
 
 
 router.post('/images', async (ctx) => {
-    const file = ctx.request.files.image
-    let uid = 1
+    const { uid, name, privacy} = ctx.request.body;
+    const file = ctx.request.files.image;
+    let private;
 
-    const { status, body } = await uploadImage(file, uid)
+    if (privacy === 'private'){        
+        private = true
+    } else {
+        private = false
+    }
+
+    const params = {
+        uid,
+        name,
+        file,
+        private
+    }
+
+    const { status, body } = await uploadImage(params)
 
     ctx.body = body;
     ctx.status = status;

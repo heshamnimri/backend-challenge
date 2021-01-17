@@ -2,13 +2,14 @@ const _ = require('lodash');
 const uuid = require('uuid-v4');
 const { FirebaseBucket, Firestore } = require('../firebase/firebase')
 
-async function uploadImage(file, uid) {
+async function uploadImage(params) {
+    const { uid, name, file, private } = params
     let status, body
 
     const metadata = {
         uuid: uuid(),
         uid,
-        contentType: 'image/png',
+        contentType: 'image/png', //make jpg or png
         cacheControl: 'public, max-age=31536000',
     };
     
@@ -20,7 +21,10 @@ async function uploadImage(file, uid) {
         }).then( async (res) => {
             await Firestore.doc().set({
                 name: file.name,
-                downloadURL: "test",
+                downloadURL: await res[0].getSignedUrl({
+                    action: 'read', 
+                    expires: '03-09-2491'
+                }),
                 keywords: ['car'],
                 private: false,
                 userId: 1
@@ -41,22 +45,23 @@ async function uploadImage(file, uid) {
 async function getImages (){
     let body = []
 
-    const files = await FirebaseBucket.getFiles()
+    const files = (await FirebaseBucket.getFiles())[0]
+    files.shift()
 
     if (files.length){
         for (const file of files) {
-            const signedURL =  await file[1].getSignedUrl({
+            const signedURL =  await file.getSignedUrl({
                 action: 'read', 
                 expires: '03-09-2491'
             })
             if (signedURL.length){
                 body.push({
                     src: signedURL[0],
-                    title: file[1].name, 
+                    title: file.name, 
                     subtitle: 'user'
                 })
             } else {
-                body = `Error pulling image ${file[1].name}`
+                body = `Error pulling image ${file.name}`
                 status = 500
             }
         }

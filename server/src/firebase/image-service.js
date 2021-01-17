@@ -50,7 +50,11 @@ async function getImages (){
                 expires: '03-09-2491'
             })
             if (signedURL.length){
-                body.push(signedURL[0])
+                body.push({
+                    src: signedURL[0],
+                    title: file[1].name, 
+                    subtitle: 'user'
+                })
             } else {
                 body = `Error pulling image ${file[1].name}`
                 status = 500
@@ -66,5 +70,3 @@ async function getImages (){
 }
 
 module.exports = { uploadImage, getImages }
-
-

@@ -1,0 +1,28 @@
+.v-ripple__container {
+    display: none !important;
+}
+
+.v-tab, .v-btn__content {
+    text-transform: none !important;
+}
+
+button {
+    border-radius: 2px !important;
+    border-style: inherit !important;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+.v-card {
+    border-width: inherit;
+}
+
+.v-list--nav .v-list-item, .v-list--nav .v-list-item:before {
+    border-radius: 0px 4px 4px 0px;
+}
+
+.v-application {
+    line-height: 1 !important;
+}

@@ -21,13 +21,14 @@ async function uploadImage(params) {
         }).then( async (res) => {
             await Firestore.doc().set({
                 name: file.name,
+                title: name,
                 downloadURL: await res[0].getSignedUrl({
                     action: 'read', 
                     expires: '03-09-2491'
                 }),
                 keywords: ['car'],
-                private: false,
-                userId: 1
+                private: private,
+                uid 
             }).then( (res) => {
                 status = 200;
                 body = `sucessfully uploaded ${file.name}`;

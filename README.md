@@ -9,11 +9,8 @@ I levered GCP firestore and storage to ensure secure uploads and downloads and i
 
 ## REST API Documentation
 
-- [Upload](docs/upload.md) : `POST /image/`
-- [Download](docs/download.md) : `GET /image/{id}/`
-- [Delete](docs/delete.md) : `DELETE /image/{id}`
-- [Image Search](docs/image-search.md) : `POST /image/search/`
-- [Tag Search](docs/tag-search.md) : `POST /image/search/tags/{tag}/`
+- Upload one or many images : `POST /images`
+- Retrive all images : `GET /images`
 
 ## Instructions
 
@@ -31,6 +28,8 @@ npm run api
 ```
 
 The API will now be up and running on port `1234`. You can interact with it using postman, curl, etc... or use the provided UI !
+
+Picture will automatically populate. Use the `upload image` button to upload one or many images!
 
 ### Frontend
 

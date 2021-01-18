@@ -33,72 +33,6 @@
               </el-select>
             </div>
             <v-spacer></v-spacer>
-            <!-- <br>
-            <div>
-              <span>Last Name:     </span>
-              <el-input placeholder="Doe" v-model="newContactPayload.lastName">Last Name: </el-input>
-            </div>
-            <br>
-            <div>
-              <span>Email:     </span>
-              <el-input placeholder="example@email.com" v-model="newContactPayload.email">Email: </el-input>
-            </div>
-            <br>
-            <div>
-              <span>Select Company:   </span>
-              <el-select
-                v-model="newContactPayload.company"
-                placeholder="Select Company">
-                <el-option
-                  v-for="item in contactsModule.companies"
-                  :key="item.name"
-                  :label="item.name"
-                  :value="item.uuid">
-                </el-option>
-              </el-select>
-            </div>
-            <br>
-            <div>
-              <span>Select Authorization:   </span>
-              <el-select
-              v-model="newContactPayload.authorizedType"
-              placeholder="Select Authorization">
-              <el-option
-                v-for="(key,val) in contactAuth"
-                :key="val"
-                :label="key.split('_').join(' ')"
-                :value="key">
-              </el-option>
-             </el-select>
-            </div>
-            <br>
-            <div>
-              <span>Select Label:   </span>
-              <el-select
-                v-model="newContactPayload.label"
-                placeholder="Select Label">
-                <el-option
-                  v-for="(key,val) in contactLabels"
-                  :key="val"
-                  :label="key.split('_').join(' ')"
-                  :value="key">
-                </el-option>
-              </el-select>
-            </div>
-            <br>
-            <div>
-              <span>Is Contact Internal?     </span>
-              <el-select
-                v-model="newContactPayload.isInternal"
-                placeholder="True/False">
-                <el-option
-                  v-for="item in internalStatus"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </div> -->
             <span slot="footer" class="dialog-footer">
               <el-button @click="uploadDialogVisible = false">Cancel</el-button>
               <el-button type="primary" @click="handleUploadClose">Confirm</el-button>
@@ -106,7 +40,7 @@
           </el-dialog>
         <el-button
           @click="handleAddCompany"
-        >Add Company</el-button>
+        >Sign in</el-button>
           <el-dialog
             title="Create New Company"
             :visible.sync="companyDialogVisible">
@@ -169,7 +103,7 @@
         <el-select
           v-model="companyFilter"
           @change="updateFilters"
-          clearable placeholder="Select Company Filter">
+          clearable placeholder="Select Filters">
           <el-option
               v-for="item in contactsModule.companies"
               :key="item.name"
@@ -202,7 +136,7 @@
               </v-btn>
 
               <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
+                <v-icon>mdi-delete</v-icon>
               </v-btn>
 
               <v-btn icon>

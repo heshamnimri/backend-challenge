@@ -39,11 +39,12 @@ async function uploadImage(params) {
         status = 500;
         body = "failed uploading image";
     }
-
+    console.log('UPLOAD_IMAGE')
     return { status, body }
 }
 
 async function getImages (){
+    let status
     let body = []
 
     const files = (await FirebaseBucket.getFiles())[0]
@@ -71,7 +72,7 @@ async function getImages (){
     } else {
         body = 'No images found'
     }
-
+    console.log('GET_IMAGE')
     return { body, status }
 }
 

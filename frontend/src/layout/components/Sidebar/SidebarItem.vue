@@ -7,6 +7,7 @@
       {'first-level': isFirstLevel}
     ]"
   >
+    <v-img src="@/assets/logo-dark.png" height="200px"></v-img>
     <template v-if="theOnlyOneChild && !theOnlyOneChild.children">
       <sidebar-item-link
         v-if="theOnlyOneChild.meta"

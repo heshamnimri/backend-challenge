@@ -28,7 +28,7 @@ async function uploadImage(params) {
                 }),
                 keywords: ['car'],
                 private: private,
-                uid 
+                uid: uid ? uid : 1,
             }).then( (res) => {
                 status = 200;
                 body = `sucessfully uploaded ${file.name}`;

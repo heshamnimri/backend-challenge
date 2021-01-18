@@ -34,7 +34,7 @@ export default class extends Vue {
 @import "~@/styles/_variables.scss";
 
 #navbar {
-  background: linear-gradient(90deg,#143b76,#1c53a3);
+  background: #7EB65E;
   height: $navbar-height;
   box-sizing: border-box;
   position: fixed;

@@ -12,13 +12,13 @@
               <v-file-input
                 multiple
                 accept="image/*"
-                label="File input"
+                label="File input (select multiple)"
                 v-model="uploadImagePayload.fileList"
               ></v-file-input>
               <v-spacer></v-spacer>
               <v-text-field
                 v-model="uploadImagePayload.name"
-                label="File Name"
+                label="File Name/Album name"
                 required
               ></v-text-field>
               <el-select

@@ -1,13 +1,13 @@
 const _ = require('lodash');
 const Router = require('koa-router');
 const uuid = require('uuid-v4');
-const { uploadImage, getImages } = require('../firebase/image-service');
+const { uploadImage, getImages, deleteImages} = require('../firebase/image-service');
 
 const { FirebaseAdmin, FirebaseBucket } = require('../firebase/firebase')
 
 const router = new Router();
 
-
+// Path for uploading images
 router.post('/images', async (ctx) => {
     const { uid, name, privacy} = ctx.request.body;
     const file = ctx.request.files.image;
@@ -27,6 +27,21 @@ router.post('/images', async (ctx) => {
     }
 
     const { status, body } = await uploadImage(params)
+
+    ctx.body = body;
+    ctx.status = status;
+});
+
+router.post('/images/delete', async (ctx) => {
+    const { images } = ctx.request.body;
+    let status, body
+
+    if ( images && Array.isArray(images)){
+        status, body  = await deleteImages(images)
+    } else {
+        status = 500
+        body = 'Error: invalid input - input not an array or empty'
+    }
 
     ctx.body = body;
     ctx.status = status;

@@ -2,11 +2,38 @@ const _ = require('lodash');
 const uuid = require('uuid-v4');
 const { FirebaseBucket, Firestore } = require('../firebase/firebase')
 
+async function deleteImages(images) {
+    let status, body
+
+    try {
+        const res = await Promise.all(
+            images.map(
+                async image => {
+                    const file = FirebaseBucket.file('images/'+image)
+                    // const file = FirebaseBucket.file(`${uid}/${image}`)
+                    if (file) {
+                        const res = await file.delete()
+                    } else { 
+                        throw 'image does not exist'
+                    }
+                }
+            )
+        )    
+        status = 200
+        body = `deleted: ${images.join(',')}`
+    } catch (err){
+        console.log(err)
+        status = 500;
+        body = `failed uploading image. Error" ${err}`;
+    }
+    return { status, body }
+}
+
 async function uploadImage(params) {
     const { uid, name, file, private } = params
     let status, body
 
-    const metadata = {
+    const uuid = {
         uuid: uuid(),
         uid,
         contentType: 'image/png', //make jpg or png
@@ -15,7 +42,9 @@ async function uploadImage(params) {
     
     try {
         await FirebaseBucket.upload(file.path, {
-            destination: `${'images/'+file.name}`,
+            //update structure to make folders for users based on uid
+            // destination: `${uid}'/'${+metadata.uuid}`,
+            destination: `${'images/'+metadata.uuid}`,
             gzip: true,
             metadata: metadata
         }).then( async (res) => {
@@ -39,7 +68,6 @@ async function uploadImage(params) {
         status = 500;
         body = "failed uploading image";
     }
-    console.log('UPLOAD_IMAGE')
     return { status, body }
 }
 
@@ -76,4 +104,4 @@ async function getImages (){
     return { body, status }
 }
 
-module.exports = { uploadImage, getImages }
+module.exports = { uploadImage, getImages, deleteImages }
